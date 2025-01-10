@@ -12,6 +12,9 @@ import {
     query,
     where,
     getDocs,
+    orderBy,
+    startAt,
+    endAt,
 
 } from "https://www.gstatic.com/firebasejs/11.1.0/firebase-firestore.js";
 
@@ -121,7 +124,7 @@ function showProducts(products) {
         var categoryName = categoryMap[prd.Category] || "Unknown";
 
         div.innerHTML += `
-               <div class="col-md-4 mb-3">
+            <div class="col-md-4 mb-3">
     <div class="card mb-3 shadow-sm hover-card">
         <div class="row g-0 border-3">
             <div class="col-md-4">
@@ -174,7 +177,12 @@ window.searchProduct = async function () {
     if (searchValue == "") {
         q = collection(db, 'Product');
     } else {
-        q = query(collection(db, 'Product'), where('Name', '==', searchValue));
+        q = query(
+            collection(db, 'Product'),
+            orderBy('Name'), 
+            startAt(searchValue), // بداية البحث من الحرف المدخل
+            endAt(searchValue + '\uf8ff') // حتى نهاية الكلمات التي تبدأ بنفس الحرف
+        );
     }
 
     const res = await getDocs(q);
@@ -195,7 +203,7 @@ window.filterProduct = async function () {
 
     let q;
 
-    if (filterValue == "") {
+    if (filterValue === "") {
         q = collection(db, 'Product');
     } else {
         q = query(collection(db, 'Product'), where('Price', '<=', parseInt(filterValue)));
