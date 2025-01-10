@@ -10,7 +10,10 @@ import {
     updateDoc,
     query,
     where,
-    getDocs
+    getDocs,
+    orderBy,
+    startAt,
+    endAt,
 } from "https://www.gstatic.com/firebasejs/11.1.0/firebase-firestore.js";
 
 const firebaseConfig = {
@@ -112,7 +115,12 @@ async function searchCategory() {
     if (searchValue == "") {
         q = collection(db, 'Category');
     } else {
-        q = query(collection(db, 'Category'), where('Name', '==', searchValue));
+        q = query(
+                    collection(db, 'Category'),
+                    orderBy('Name'), 
+                    startAt(searchValue), 
+                    endAt(searchValue + '\uf8ff')
+                );
     }
     const res = await getDocs(q);
     const categories = [];
