@@ -26,8 +26,6 @@ async function signUp() {
     try {
         await createUserWithEmailAndPassword(auth, email, password);
 
-        alert("Account created successfully! Please log in.");
-
         location.assign("logIn.html");
     } catch (error) {
 
