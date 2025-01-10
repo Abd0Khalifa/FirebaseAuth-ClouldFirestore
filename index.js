@@ -40,7 +40,7 @@ async function logOut() {
 }
 onAuthStateChanged(auth, function (user) {
     if (!user) {
-        location.assign("login.html");
+        location.assign("logIn.html");
     }
 });
 
