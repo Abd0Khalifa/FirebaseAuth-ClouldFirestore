@@ -28,7 +28,7 @@ async function signUp() {
 
         alert("Account created successfully! Please log in.");
 
-        location.assign("login.html");
+        location.assign("logIn.html");
     } catch (error) {
 
         alert("try again : ");
