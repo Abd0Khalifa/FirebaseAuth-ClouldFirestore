@@ -24,7 +24,6 @@ async function logIn() {
 
     try {
         await signInWithEmailAndPassword(auth, email, password);
-        alert("Login successful!");
         location.assign("index.html");
     } catch (error) {
         alert("failed email or password try again: ");
